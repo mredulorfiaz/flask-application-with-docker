@@ -18,7 +18,7 @@ class User(db.Model):
     fName = db.Column(db.String(50))
     lName = db.Column(db.String(50))
     email = db.Column(db.String(50), unique=True, nullable=False)
-    mobile = db.Column(db.Integer(15), unique=True, nullable=False)
+    mobile = db.Column(db.Integer, unique=True, nullable=False)
     isDeleted = db.Column(db.Boolean())
 
     def __init__(self, fName, lName, email, mobile, isDeleted):
