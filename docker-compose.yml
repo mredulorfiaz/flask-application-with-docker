@@ -29,10 +29,10 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     env_file: ./.env
     environment:
-      MYSQL_ROOT_PASSWORD: 1234
-      MYSQL_DATABASE: flaskDB
-      MYSQL_USER: root
-      MYSQL_PASSWORD: 1234
+      MYSQL_ROOT_PASSWORD: ${DB_PASS}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASS}
     volumes:
       - db-data:/var/lib/mysql
       - ./db:/docker-entrypoint-initdb.d
