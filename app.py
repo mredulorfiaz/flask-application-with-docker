@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, flash, redirect, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 
 from config import Config
@@ -12,6 +12,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
 db = SQLAlchemy(app)
+
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -30,8 +31,14 @@ class User(db.Model):
 
 
 @app.route('/')
-def index():
-    return "Hello World!"
+def homepage():
+    try:
+        users_list = User.query.filter_by(isDeleted=False).all()
+    except:
+        users_list = ""
+
+    return render_template("index.html", users=users_list)
+
 
 if __name__ == '__main__':
-    app.run(port=5001,debug=True)
+    app.run(port=5001, debug=True)
