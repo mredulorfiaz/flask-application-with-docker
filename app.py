@@ -63,5 +63,24 @@ def add_user():
         return render_template('form.html')
 
 
+@app.route('/updateUser', methods=['POST'])
+def update_user():
+    if request.method == 'POST':
+        id = request.form['id']
+        user_data = User.query.get(id)
+        user_data.fName = request.form['fName']
+        user_data.lName = request.form['lName']
+        user_data.email = request.form['email']
+        user_data.mobile = request.form['mobile']
+        try:
+            db.session.commit()
+        except exc.IntegrityError:
+            flash("Duplicate email/phone number")
+            return redirect(url_for('homepage'))
+
+        flash("User Updated Successfully!")
+        return redirect(url_for('homepage'))
+
+
 if __name__ == '__main__':
     app.run(port=5001, debug=True)
