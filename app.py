@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask, flash, redirect, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import exc
@@ -5,7 +7,12 @@ from sqlalchemy import exc
 app = Flask(__name__)
 app.secret_key = "My Secret Key"
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:1234@database/flaskDB'
+DB_HOST = os.getenv('DB_HOST') 
+DB_PASS = os.getenv('DB_PASS') 
+DB_NAME = os.getenv('DB_NAME') 
+DB_USER = os.getenv('DB_USER') 
+
+app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{DB_USER}:{DB_PASS}@{DB_HOST}/{DB_NAME}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
@@ -87,7 +94,6 @@ def delete_user(id):
         db.session.commit()
 
         flash("User Deleted")
-
         return redirect(url_for('homepage'))
 
 
