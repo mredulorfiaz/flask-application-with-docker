@@ -1,5 +1,6 @@
 from flask import Flask, flash, redirect, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import exc
 
 from config import Config
 
@@ -38,6 +39,28 @@ def homepage():
         users_list = ""
 
     return render_template("index.html", users=users_list)
+
+
+@app.route('/adduser', methods=['POST', 'GET'])
+def add_user():
+    if request.method == 'POST':
+        fName = request.form['fName']
+        lName = request.form['lName']
+        email = request.form['email']
+        mobile = request.form['mobile']
+        user_data = User(fName, lName, email, mobile, False)
+        try:
+            db.session.add(user_data)
+            db.session.commit()
+        except exc.IntegrityError:
+            flash("Duplicate email/phone number")
+            return redirect(request.url)
+
+        flash('Employee added successfully!')
+        return redirect(url_for('homepage'))
+
+    elif request.method == 'GET':
+        return render_template('form.html')
 
 
 if __name__ == '__main__':
