@@ -1,9 +1,100 @@
 {% extends 'layout.html' %}
-
 {% block title %}
 FLASK CRUD Application
-{% endblock %}
+{%  endblock %}
 
 {% block body %}
-    <h1>Home Page</h1>
-{% endblock %}
+{% include 'header.html' %}
+<div class="container">
+
+    <div class="col-md-8 mx-auto">
+        <div class="row">
+            <div class="col-md-8">
+                <h2 class="my-4">Users List:</h2>
+            </div>
+            <div class="col-md-4 mt-4">
+                <a href="{{url_for('add_user')}}" class="btn btn-success float-end">Add Employee</a>
+            </div>
+        </div>
+
+        <table class="table table-bordered">
+
+            <tr>
+                <th scope="col">#ID</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Mobile No</th>
+                <th scope="col">Action</th>
+            </tr>
+            {% if users %}
+            {% for user in users %}
+            <tr>
+                <th scope="row">{{ user.id }}</th>
+                <td>{{ user.fName }}</td>
+                <td>{{ user.lName }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.mobile }}</td>
+                <td>
+                    <div>
+                        <a href="/update/{{ user.id }}" class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#updateModal{{ user.id }}"> Update </a>
+                        <a href="/delete/{{ user.id }}" class="btn btn-danger btn-sm"
+                            onclick="return confirm('Are you sure to delete?');"> Delete </a>
+                    </div>
+                </td>
+            </tr>
+            {# Modal Section#}
+            <div class="modal fade" id="updateModal{{ user.id }}">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Update Employee detail</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ url_for('update_user') }}" method="post">
+                                <div class="mb-3">
+                                    <label for="fName" class="form-label">First Name</label>
+                                    <input type="hidden" value="{{ user.id }}" name="id">
+                                    <input type="text" class="form-control" id="fName" name="fName"
+                                        value="{{ user.fName }}">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="lName" class="form-label">Last Name </label>
+                                    <input type="text" class="form-control" id="lName" name="lName"
+                                        value="{{ user.lName }}">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">E-mail Address </label>
+                                    <input type="email" class="form-control" id="email" name="email"
+                                        value="{{ user.email }}">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="mobile" class="form-label">Mobile No </label>
+                                    <input type="tel" class="form-control" id="mobile" name="mobile"
+                                        value="{{ user.mobile }}">
+                                </div>
+
+                                <button type="submit" class="btn btn-success">Update</button>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <tr>
+                <td colspan="3">
+                    <p class="text-danger text-center">No Users Found</p>
+                </td>
+            </tr>
+            {% endif %}
+        </table>
+
+    </div>
+</div>
+{%  endblock %}
