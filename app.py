@@ -79,5 +79,17 @@ def update_user():
         return redirect(url_for('homepage'))
 
 
+@app.route('/delete/<id>', methods=['GET', 'POST'])
+def delete_user(id):
+    if request.method == 'GET':
+        my_data = User.query.get(id)
+        my_data.isDeleted = True;
+        db.session.commit()
+
+        flash("User Deleted")
+
+        return redirect(url_for('homepage'))
+
+
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0")
