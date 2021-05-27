@@ -20,7 +20,7 @@ FLASK CRUD Application
     <div class="col-md-8 mx-auto">
         <div class="row">
             <div class="col-md-8">
-                <h2 class="my-4">Users List:</h2>
+                <h2 class="my-4">Users List</h2>
             </div>
             <div class="col-md-4 mt-4">
                 <a href="{{url_for('add_user')}}" class="btn btn-success float-end">Add Employee</a>
@@ -48,7 +48,7 @@ FLASK CRUD Application
                 <td>
                     <div>
                         <a href="/update/{{ user.id }}" class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                            data-bs-target="#updateModal{{ user.id }}"> Update </a>
+                            data-bs-target="#updateModal{{ user.id }}"> Edit </a>
                         <a href="/delete/{{ user.id }}" class="btn btn-danger btn-sm"
                             onclick="return confirm('Are you sure to delete?');"> Delete </a>
                     </div>
@@ -98,7 +98,7 @@ FLASK CRUD Application
             {% endfor %}
             {% else %}
             <tr>
-                <td colspan="3">
+                <td colspan="6">
                     <p class="text-danger text-center">No Users Found</p>
                 </td>
             </tr>
