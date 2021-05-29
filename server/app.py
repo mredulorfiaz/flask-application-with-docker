@@ -1,13 +1,20 @@
 import os
 
 from flask import Flask, jsonify, make_response, request
+from flask_cors import CORS
 from flaskext.mysql import MySQL
 
 app = Flask(__name__)
-app.config['MYSQL_DATABASE_HOST'] = os.getenv('DB_HOST') if os.getenv('DB_HOST') else 'localhost'
-app.config['MYSQL_DATABASE_USER'] = os.getenv('DB_USER') if os.getenv('DB_USER') else 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = os.getenv('DB_PASS') if os.getenv('DB_PASS') else '1234'
-app.config['MYSQL_DATABASE_DB'] = os.getenv('DB_NAME') if os.getenv('DB_NAME') else 'flaskDB'
+CORS(app)
+
+app.config['MYSQL_DATABASE_HOST'] = os.getenv(
+    'DB_HOST') if os.getenv('DB_HOST') else 'localhost'
+app.config['MYSQL_DATABASE_USER'] = os.getenv(
+    'DB_USER') if os.getenv('DB_USER') else 'root'
+app.config['MYSQL_DATABASE_PASSWORD'] = os.getenv(
+    'DB_PASS') if os.getenv('DB_PASS') else '1234'
+app.config['MYSQL_DATABASE_DB'] = os.getenv(
+    'DB_NAME') if os.getenv('DB_NAME') else 'flaskDB'
 
 mysql = MySQL()
 mysql.init_app(app)
@@ -26,7 +33,7 @@ def index():
             "lName": user[2],
             "email": user[3],
             "mobile": user[4]
-    })
+        })
 
     return make_response(jsonify({
         "users": users,
@@ -68,8 +75,8 @@ def delete_user(id):
         query = f"DELETE FROM user WHERE id = {id}"
         query_builder(query, 'delete')
         return make_response(jsonify(error=False,
-                message="Deleted User"
-        ), 204)
+                                     message="Deleted User"
+                                     ), 204)
     else:
         return make_response("No such user", 200)
 
