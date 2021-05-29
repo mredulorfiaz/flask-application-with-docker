@@ -1,10 +1,13 @@
 # Flask Application with Docker Compose 
 
+![alt text](static/images/docker-flask.jpeg)
+
 ## What I did
 - Built web routes
 - Used **jinja2** to render HTML template
 - Built API Routes
 - Building client application with **ReactJS** ( Working on it.. )
+- Used docker-compose to containaraize all the services
 
 ## Used Frameworks & Tools:
 - Flask
