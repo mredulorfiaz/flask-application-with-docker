@@ -25,7 +25,7 @@ services:
   
   flask-web:
     build:
-      context: .
+      context: ./web/
       dockerfile: Dockerfile
     ports:
       - "9998:5000" 
