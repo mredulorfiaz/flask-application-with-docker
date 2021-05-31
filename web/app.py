@@ -60,7 +60,7 @@ def add_user():
             flash("Duplicate email/phone number")
             return redirect(request.url)
 
-        flash('Employee added successfully!')
+        flash('User added successfully!')
         return redirect(url_for('homepage'))
 
     elif request.method == 'GET':
