@@ -1,6 +1,6 @@
 # Flask Application with Docker Compose 
 
-![alt text](static/images/docker-flask.jpeg)
+![alt text](web/static/images/docker-flask.jpeg)
 
 ## What I did
 - Built web routes
@@ -20,6 +20,6 @@
 
 ## Setup 
 1. Clone the repository
-2. Make sure you have docker-compose installed
-3. Run the command `cd flask-application-with-docker && docker-compose up`
+2. Make sure you have docker installed
+3. Run the command `cd flask-application-with-docker && docker-compose up` or `cd flas-application-with-docker && docker compose up`
 4. Browse the application with [http://localhost:9998](http://localhost:9998) 
