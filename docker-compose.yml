@@ -41,6 +41,8 @@ services:
     
     networks: 
       - flaskmysql
+    volumes:
+      - ./web:/app
 
   database:
     image: mysql/mysql-server:8.0
